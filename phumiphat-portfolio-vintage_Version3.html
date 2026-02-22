@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ภูมิพัฒน์ ลีลาศิริวณิชย์ — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --win-bg:        #008080;
+  --win-titlebar:  linear-gradient(90deg, #000080, #1084d0);
+  --win-titlebar2: linear-gradient(90deg, #808080, #b0b0b0);
+  --win-face:      #c0c0c0;
+  --win-light:     #ffffff;
+  --win-shadow:    #808080;
+  --win-dark:      #404040;
+  --win-darkest:   #000000;
+  --win-white:     #dfdfdf;
+  --win-blue:      #000080;
+  --win-cyan:      #008080;
+  --win-yellow:    #ffff00;
+  --win-red:       #ff0000;
+  --win-green:     #008000;
+  --text:          #000000;
+  --text-light:    #ffffff;
+  --link:          #0000ff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Sarabun', 'VT323', sans-serif;
+  background: var(--win-bg);
+  color: var(--text);
+  overflow-x: hidden;
+  cursor: default;
+  min-height: 100vh;
+}
+
+.win-border {
+  border: 2px solid;
+  border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
+  background: var(--win-face);
+}
+.win-border-inset {
+  border: 2px solid;
+  border-color: var(--win-dark) var(--win-light) var(--win-light) var(--win-dark);
+  background: var(--win-white);
+}
+
+.window {
+  border: 2px solid;
+  border-color: var(--win-light) var(--win-darkest) var(--win-darkest) var(--win-light);
+  background: var(--win-face);
+  box-shadow: 1px 1px 0 var(--win-darkest);
+  margin-bottom: 12px;
+}
+.window-titlebar {
+  background: var(--win-titlebar);
+  padding: 3px 4px;
+  display: flex; align-items: center; justify-content: space-between;
+  user-select: none;
+}
+.window-titlebar.inactive {
+  background: var(--win-titlebar2);
+}
+.window-title {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 13px; font-weight: 700;
+  color: white;
+  padding-left: 4px;
+  display: flex; align-items: center; gap: 6px;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+}
+.window-title .win-icon { font-size: 14px; }
+.window-btns { display: flex; gap: 2px; }
+.win-btn {
+  width: 16px; height: 14px;
+  border: 2px solid;
+  border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
+  background: var(--win-face);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 8px; font-family: 'Sarabun', sans-serif; font-weight: 900;
+  cursor: pointer; color: var(--text); line-height: 1;
+}
+.win-btn:active {
+  border-color: var(--win-dark) var(--win-light) var(--win-light) var(--win-dark);
+}
+.window-body { padding: 12px; }
+.window-statusbar {
+  border-top: 2px solid;
+  border-color: var(--win-dark) var(--win-light) var(--win-light) var(--win-dark);
+  padding: 3px 8px;
+  font-size: 11px; color: var(--text);
+  display: flex; gap: 12px;
+}
+.statusbar-section {
+  border: 1px solid;
+  border-color: var(--win-dark) var(--win-light) var(--win-light) var(--win-dark);
+  padding: 1px 8px; flex: 1;
+}
+
+.menubar {
+  display: flex; gap: 0; padding: 2px 4px;
+  border-bottom: 1px solid var(--win-dark);
+}
+.menu-item {
+  padding: 2px 8px; font-size: 12px; cursor: pointer;
+  font-family: 'Sarabun', sans-serif;
+}
+.menu-item:hover { background: var(--win-blue); color: white; }
+.menu-item u { text-decoration: underline; }
+
+nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+  background: var(--win-face);
+  border-top: 2px solid;
+  border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
+  padding: 3px 4px;
+  display: flex; align-items: center; gap: 4px;
+}
+.start-btn {
+  border: 2px solid;
+  border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
+  background: var(--win-face);
+  padding: 2px 8px;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 12px; font-weight: 800;
+  cursor: pointer;
+  display: flex; align-items: center; gap: 4px;
+}
+.start-btn:active {
+  border-color: var(--win-dark) var(--win-light) var(--win-light) var(--win-dark);
+}
+.start-btn .win-logo { font-size: 16px; }
+.taskbar-divider {
+  width: 2px; height: 22px;
+  border-left: 1px solid var(--win-dark);
+  border-right: 1px solid var(--win-light);
+  margin: 0 2px;
+}
+.taskbar-items { display: flex; gap: 2px; flex: 1; overflow-x: auto; }
+.taskbar-item {
+  border: 2px solid;
+  border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
+  background: var(--win-face);
+  padding: 2px 10px;
+  font-size: 11px; font-weight: 600;
+  cursor: pointer; white-space: nowrap;
+  font-family: 'Sarabun', sans-serif;
+  text-decoration: none; color: var(--text);
+}
+.taskbar-item:active, .taskbar-item.active {
+  border-color: var(--win-dark) var(--win-light) var(--win-light) var(--win-dark);
+  background: #dedede;
+}
+.taskbar-clock {
+  border: 1px solid;
+  border-color: var(--win-dark) var(--win-light) var(--win-light) var(--win-dark);
+  padding: 2px 10px;
+  font-family: 'VT323', monospace;
+  font-size: 14px;
+  display: flex; align-items: center; gap: 6px;
+}
+
+.desktop {
+  padding: 12px;
+  padding-bottom: 44px;
+  min-height: 100vh;
+  display: flex; flex-direction: column; gap: 12px;
+  max-width: 1100px; margin: 0 auto;
+}
+
+.desktop-icons {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px;
+}
+.desktop-icon {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 4px; width: 70px; padding: 4px;
+  cursor: pointer; text-decoration: none;
+}
+.desktop-icon:hover { background: rgba(255,255,255,0.15); }
+.desktop-icon .ico { font-size: 32px; filter: drop-shadow(1px 1px 0 rgba(0,0,0,0.4)); }
+.desktop-icon .lbl {
+  font-size: 10px; color: white; text-align: center;
+  text-shadow: 1px 1px 1px #000;
+  font-family: 'Sarabun', sans-serif; font-weight: 600; line-height: 1.3;
+}
+
+.hero-window .window-body {
+  display: grid; grid-template-columns: 1fr 260px;
+  gap: 20px; align-items: center;
+  background: linear-gradient(135deg, #000040 0%, #000080 40%, #0040a0 100%);
+  padding: 24px;
+}
+.hero-left {}
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,0,0.15);
+  border: 1px dashed var(--win-yellow);
+  padding: 3px 12px; font-size: 11px;
+  color: var(--win-yellow); font-weight: 700;
+  margin-bottom: 16px;
+  font-family: 'VT323', monospace; font-size: 16px;
+}
+.hero-tag .blink {
+  animation: blink 1s step-end infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.hero-name {
+  font-family: 'Press Start 2P', 'VT323', monospace;
+  font-size: clamp(16px, 3vw, 24px);
+  color: white; line-height: 1.8;
+  text-shadow: 2px 2px 0 #000080;
+}
+.hero-name span { color: var(--win-yellow); }
+.hero-nickname {
+  font-family: 'VT323', monospace;
+  font-size: 22px; color: #00ff00;
+  margin-top: 8px;
+}
+.hero-desc {
+  margin-top: 14px;
+  font-size: 14px; color: #b0c0ff;
+  line-height: 1.8;
+}
+.hero-motto {
+  margin-top: 14px;
+  font-family: 'VT323', monospace;
+  font-size: 18px; color: var(--win-yellow);
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+}
+.hero-motto::before { content: '> '; color: #00ff00; }
+
+.hero-stats {
+  display: flex; gap: 16px; margin-top: 20px; flex-wrap: wrap;
+}
+.hero-stat {
+  border: 1px solid #4060c0;
+  background: rgba(0,0,0,0.3);
+  padding: 8px 14px; text-align: center;
+}
+.hero-stat .n {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 14px; color: var(--win-yellow); line-height: 1;
+}
+.hero-stat .l {
+  font-family: 'VT323', monospace;
+  font-size: 14px; color: #80a0ff; margin-top: 4px;
+}
+
+.hero-btns { display: flex; gap: 8px; margin-top: 20px; }
+.btn-win {
+  border: 2px solid;
+  border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
+  background: var(--win-face);
+  padding: 6px 20px;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 13px; font-weight: 700;
+  cursor: pointer; text-decoration: none; color: var(--text);
+}
+.btn-win:active {
+  border-color: var(--win-dark) var(--win-light) var(--win-light) var(--win-dark);
+}
+.btn-win.primary { background: #000080; color: white; border-color: #4060c0 #000040 #000040 #4060c0; }
+
+.hero-card {
+  border: 2px solid;
+  border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
+  background: var(--win-face);
+  padding: 16px; text-align: center;
+}
+.hero-photo-wrap {
+  width: 120px; height: 120px; margin: 0 auto 12px;
+  border: 3px solid;
+  border-color: var(--win-dark) var(--win-light) var(--win-light) var(--win-dark);
+  background: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 60px;
+}
+.hero-card-name { font-size: 14px; font-weight: 700; }
+.hero-card-school { font-size: 11px; color: var(--win-dark); margin-top: 2px; }
+.hero-card-gpax {
+  display: inline-block;
+  background: var(--win-blue); color: white;
+  font-size: 11px; font-weight: 700;
+  padding: 2px 10px; margin-top: 8px;
+}
+.hero-card-tags { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; margin-top: 10px; }
+.htag {
+  border: 1px solid var(--win-dark);
+  background: white; font-size: 10px;
+  padding: 1px 6px;
+}
+.hero-contacts { margin-top: 12px; text-align: left; }
+.hcontact {
+  font-size: 11px; padding: 2px 0;
+  display: flex; align-items: center; gap: 6px;
+}
+.hcontact .icon { font-size: 12px; width: 16px; text-align: center; }
+
+.section-label {
+  font-family: 'VT323', monospace;
+  font-size: 18px; color: var(--win-blue);
+  margin-bottom: 4px;
+}
+.section-title {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 20px; font-weight: 800;
+  margin-bottom: 16px;
+}
+.section-title span { color: var(--win-blue); }
+
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.about-text p { font-size: 13.5px; line-height: 1.8; margin-bottom: 10px; }
+
+.info-list { display: flex; flex-direction: column; gap: 2px; }
+.info-row {
+  display: flex; gap: 8px;
+  padding: 4px 8px;
+  border-bottom: 1px dotted var(--win-shadow);
+  font-size: 12px;
+}
+.info-row:nth-child(even) { background: #d4d0c8; }
+.info-row .key { font-weight: 700; min-width: 80px; color: var(--win-blue); flex-shrink: 0; }
+.info-row .val { color: var(--text); }
+
+.interests-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 6px; margin-top: 12px;
+}
+.interest-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 10px;
+  border: 1px solid var(--win-dark);
+  background: #ffffcc;
+}
+.interest-item .icon { font-size: 16px; }
+.interest-item .txt { font-size: 12px; font-weight: 600; }
+
+.skills-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.skill-card {
+  border: 2px solid;
+  border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
+  background: var(--win-face);
+  padding: 12px;
+}
+.skill-card-icon { font-size: 24px; margin-bottom: 8px; display: block; }
+.skill-card-title { font-size: 12px; font-weight: 800; margin-bottom: 6px; }
+.skill-tags { display: flex; flex-wrap: wrap; gap: 3px; }
+.stag {
+  font-size: 10px; background: white;
+  border: 1px solid var(--win-dark);
+  padding: 1px 6px; font-weight: 600;
+}
+.stag.gold { background: #ffffcc; border-color: #ccaa00; }
+.stag.blue { background: #cce0ff; border-color: #4080c0; }
+
+.skill-bar-list { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
+.sb-group-header {
+  font-family: 'VT323', monospace;
+  font-size: 18px; color: var(--win-blue);
+  margin-bottom: 2px; margin-top: 4px;
+}
+.sb-divider {
+  border-top: 2px dotted var(--win-shadow);
+  margin: 8px 0;
+}
+.sb-row {}
+.sb-info { display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; margin-bottom: 3px; }
+.sb-pct { font-family: 'VT323', monospace; font-size: 16px; color: var(--win-blue); }
+.sb-track {
+  height: 16px;
+  border: 2px solid;
+  border-color: var(--win-dark) var(--win-light) var(--win-light) var(--win-dark);
+  background: white;
+}
+.sb-fill {
+  height: 100%;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--win-blue) 0px, var(--win-blue) 8px,
+    #4060c0 8px, #4060c0 10px
+  );
+}
+
+.timeline { position: relative; }
+.timeline::before {
+  content: ''; position: absolute;
+  left: 18px; top: 0; bottom: 0; width: 2px;
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--win-dark) 0px, var(--win-dark) 4px,
+    transparent 4px, transparent 8px
+  );
+}
+.tl-item { display: flex; gap: 16px; margin-bottom: 16px; position: relative; }
+.tl-dot {
+  width: 36px; height: 36px;
+  border: 2px solid;
+  border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
+  background: var(--win-face);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0; z-index: 1;
+}
+.tl-content {
+  flex: 1;
+  border: 2px solid;
+  border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
+  background: var(--win-face);
+  padding: 12px;
+}
+.tl-content:hover { background: #d4d0c8; }
+.tl-date {
+  font-family: 'VT323', monospace;
+  font-size: 16px; color: var(--win-blue);
+  margin-bottom: 4px;
+}
+.tl-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+.tl-role {
+  display: inline-block;
+  background: var(--win-blue); color: white;
+  font-size: 10px; font-weight: 700;
+  padding: 1px 8px; margin-bottom: 6px;
+}
+.tl-desc { font-size: 12px; color: var(--win-dark); line-height: 1.6; }
+
+.ach-window .window-body { background: #000040; padding: 16px; }
+.ach-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 10px;
+}
+.ach-card {
+  border: 2px solid;
+  border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
+  background: var(--win-face);
+  padding: 14px;
+  position: relative;
+}
+.ach-card.gold { border-left: 4px solid #ffd700; }
+.ach-card.silver { border-left: 4px solid #c0c0c0; }
+.ach-card.green { border-left: 4px solid var(--win-green); }
+.ach-medal { font-size: 28px; margin-bottom: 8px; display: block; }
+.ach-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; line-height: 1.4; }
+.ach-event { font-size: 11px; color: var(--win-dark); line-height: 1.5; }
+.ach-date {
+  margin-top: 8px; font-family: 'VT323', monospace;
+  font-size: 15px; color: var(--win-blue);
+}
+
+.roadmap-track {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 8px; position: relative;
+}
+.rm-step {
+  border: 2px solid;
+  border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
+  background: var(--win-face);
+  padding: 16px; text-align: center;
+}
+.rm-icon {
+  width: 50px; height: 50px; margin: 0 auto 12px;
+  border: 2px solid;
+  border-color: var(--win-dark) var(--win-light) var(--win-light) var(--win-dark);
+  background: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px;
+}
+.rm-label {
+  font-family: 'VT323', monospace;
+  font-size: 16px; color: var(--win-blue);
+  margin-bottom: 4px;
+}
+.rm-title { font-size: 14px; font-weight: 800; margin-bottom: 6px; }
+.rm-items { font-size: 12px; color: var(--win-dark); line-height: 1.7; }
+
+.intro-script {
+  border: 2px solid;
+  border-color: var(--win-dark) var(--win-light) var(--win-light) var(--win-dark);
+  background: #000020;
+  padding: 20px; margin-bottom: 20px;
+  font-family: 'VT323', monospace;
+}
+.intro-script-label {
+  display: inline-block;
+  background: #00aa00; color: black;
+  padding: 2px 10px; font-size: 14px;
+  font-family: 'VT323', monospace;
+  margin-bottom: 12px;
+}
+.intro-script-text {
+  font-size: 18px; color: #00ff00;
+  line-height: 1.8;
+  text-shadow: 0 0 4px rgba(0,255,0,0.3);
+}
+.intro-script-timer {
+  margin-top: 12px; font-size: 16px;
+  color: #808080;
+  display: flex; align-items: center; gap: 6px;
+}
+.timer-dot {
+  width: 8px; height: 8px; background: #00ff00;
+  animation: blink 1s step-end infinite;
+}
+
+.qa-tabs { display: flex; gap: 0; margin-bottom: 0; }
+.qa-tab {
+  padding: 6px 16px; cursor: pointer;
+  font-size: 12px; font-weight: 700;
+  border: 2px solid;
+  border-color: var(--win-light) var(--win-dark) var(--win-face) var(--win-light);
+  background: #d4d0c8;
+  color: var(--text);
+  font-family: 'Sarabun', sans-serif;
+  position: relative; bottom: -2px;
+  border-radius: 0;
+}
+.qa-tab.active {
+  background: var(--win-face);
+  border-bottom-color: var(--win-face);
+  z-index: 1;
+}
+.qa-panel { display: none; }
+.qa-panel.active {
+  display: block;
+  border: 2px solid;
+  border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
+  padding: 12px;
+  background: var(--win-face);
+}
+.qa-list { display: flex; flex-direction: column; gap: 8px; }
+.qa-item {
+  border: 1px solid var(--win-dark);
+  background: white;
+}
+.qa-q {
+  padding: 8px 12px;
+  display: flex; align-items: flex-start; gap: 10px;
+  cursor: pointer; user-select: none;
+}
+.qa-q:hover { background: var(--win-blue); color: white; }
+.qa-q:hover .qa-q-text { color: white; }
+.qa-q:hover .qa-toggle { color: white; }
+.qa-q-icon {
+  width: 22px; height: 22px;
+  border: 2px solid;
+  border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
+  background: #ffffcc;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 900; color: var(--win-blue);
+  flex-shrink: 0; font-family: 'VT323', monospace;
+}
+.qa-q-text { font-size: 13px; font-weight: 700; flex: 1; line-height: 1.5; }
+.qa-toggle { font-size: 14px; color: var(--win-dark); }
+.qa-item.open .qa-toggle { transform: rotate(180deg); }
+.qa-a {
+  background: #ffffee;
+  border-top: 1px dotted var(--win-shadow);
+  padding: 0 12px; max-height: 0; overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.2s;
+}
+.qa-item.open .qa-a { max-height: 500px; padding: 10px 12px; }
+.qa-a-inner { display: flex; gap: 8px; }
+.qa-a-tag {
+  background: var(--win-green); color: white;
+  font-size: 9px; font-weight: 700;
+  padding: 2px 6px; flex-shrink: 0; margin-top: 2px;
+}
+.qa-a-text { font-size: 13px; line-height: 1.7; }
+
+.vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 8px; }
+.vocab-card {
+  border: 2px solid;
+  border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
+  background: var(--win-face);
+  padding: 12px; display: flex; gap: 10px;
+}
+.vocab-card:hover { background: #d4d0c8; }
+.vocab-icon {
+  width: 36px; height: 36px;
+  border: 2px solid;
+  border-color: var(--win-dark) var(--win-light) var(--win-light) var(--win-dark);
+  background: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.vocab-body { flex: 1; min-width: 0; }
+.vocab-term { font-family: 'VT323', monospace; font-size: 18px; color: var(--win-blue); }
+.vocab-full { font-size: 11px; color: var(--win-dark); font-weight: 600; }
+.vocab-desc { font-size: 12px; line-height: 1.5; margin-top: 4px; }
+.vocab-ku {
+  display: inline-block; margin-top: 6px;
+  background: #ffffcc; border: 1px solid #ccaa00;
+  padding: 1px 8px; font-size: 10px; font-weight: 600;
+}
+
+.contact-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.contact-left h2 { font-size: 20px; margin-bottom: 8px; }
+.contact-left p { font-size: 13px; line-height: 1.7; }
+.contact-right { display: flex; flex-direction: column; gap: 6px; }
+.contact-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 12px;
+  border-bottom: 1px dotted var(--win-shadow);
+}
+.contact-item:hover { background: #d4d0c8; }
+.ci-icon {
+  width: 30px; height: 30px;
+  border: 2px solid;
+  border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
+  background: #ffffcc;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; flex-shrink: 0;
+}
+.ci-info .ci-label { font-size: 9px; color: var(--win-dark); font-weight: 600; text-transform: uppercase; }
+.ci-info .ci-val { font-size: 12px; font-weight: 700; }
+
+footer {
+  background: var(--win-face);
+  border-top: 2px solid var(--win-light);
+  text-align: center; padding: 12px;
+  font-family: 'VT323', monospace;
+  font-size: 16px; color: var(--win-dark);
+  margin-bottom: 32px;
+}
+footer span { color: var(--win-blue); font-weight: 700; }
+
+@media (max-width: 768px) {
+  .hero-window .window-body { grid-template-columns: 1fr; }
+  .hero-card { display: none; }
+  .about-grid { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: 1fr 1fr; }
+  .roadmap-track { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .ach-grid { grid-template-columns: 1fr; }
+  .taskbar-items { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="desktop">
+
+<!-- Desktop Icons -->
+<div class="desktop-icons">
+  <a href="#about" class="desktop-icon"><div class="ico">📁</div><div class="lbl">My Profile</div></a>
+  <a href="#skills" class="desktop-icon"><div class="ico">💾</div><div class="lbl">Skills.exe</div></a>
+  <a href="#activities" class="desktop-icon"><div class="ico">📋</div><div class="lbl">Activities</div></a>
+  <a href="#achievements" class="desktop-icon"><div class="ico">🏆</div><div class="lbl">Awards</div></a>
+  <a href="#roadmap" class="desktop-icon"><div class="ico">🗺️</div><div class="lbl">Roadmap</div></a>
+  <a href="#interview" class="desktop-icon"><div class="ico">🎤</div><div class="lbl">Interview</div></a>
+  <a href="#contact" class="desktop-icon"><div class="ico">📧</div><div class="lbl">Contact</div></a>
+</div>
+
+<!-- ═══ HERO WINDOW ═══ -->
+<div class="window hero-window" id="hero">
+  <div class="window-titlebar">
+    <div class="window-title"><span class="win-icon">🎓</span> portfolio.exe — ภูมิพัฒน์ ลีลาศิริวณิชย์</div>
+    <div class="window-btns">
+      <div class="win-btn">_</div>
+      <div class="win-btn">□</div>
+      <div class="win-btn">✕</div>
+    </div>
+  </div>
+  <div class="menubar">
+    <div class="menu-item"><u>F</u>ile</div>
+    <div class="menu-item"><u>E</u>dit</div>
+    <div class="menu-item"><u>V</u>iew</div>
+    <div class="menu-item"><u>H</u>elp</div>
+  </div>
+  <div class="window-body">
+    <div class="hero-left">
+      <div class="hero-tag">
+        <span class="blink">▶</span> สมัครเข้า · คณะบัญชี มหาวิทยาลัยเกษตรศาสตร์ 2569
+      </div>
+      <div class="hero-name">
+        ภูมิพัฒน์<br><span>ลีลาศิริวณิชย์</span>
+      </div>
+      <div class="hero-nickname">C:\Users\Link> _</div>
+      <div class="hero-desc">
+        นักเรียนสาย STEM จาก ร.ร.สวนกุหลาบวิทยาลัย นนทบุรี
+        ที่มองนักบัญชียุคใหม่คือผู้นำเทคโนโลยีมายกระดับงาน
+        ชอบคิดเป็นระบบ ใช้ Data เพื่อตัดสินใจ และมุ่งสู่เส้นทาง Auditor → CGMA
+      </div>
+      <div class="hero-motto">จงมีความซื่อสัตย์และความรับผิดชอบต่องานและผู้คน</div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="n">3.62</div><div class="l">GPAX (5 เทอม)</div></div>
+        <div class="hero-stat"><div class="n">74</div><div class="l">CU-TEP Score</div></div>
+        <div class="hero-stat"><div class="n">4+</div><div class="l">รางวัล</div></div>
+        <div class="hero-stat"><div class="n">B2</div><div class="l">English Level</div></div>
+      </div>
+      <div class="hero-btns">
+        <a href="#activities" class="btn-win primary">📂 ดูผลงาน</a>
+        <a href="#contact" class="btn-win">📧 ติดต่อ</a>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <div class="hero-photo-wrap">🎓</div>
+      <div class="hero-card-name">นายภูมิพัฒน์ ลีลาศิริวณิชย์</div>
+      <div class="hero-card-school">โรงเรียนสวนกุหลาบวิทยาลัย นนทบุรี</div>
+      <div class="hero-card-gpax">GPAX 3.62 · STEM</div>
+      <div class="hero-card-tags">
+        <span class="htag">🏦 Accounting</span>
+        <span class="htag">💻 Technology</span>
+        <span class="htag">📊 Data</span>
+        <span class="htag">🤖 AI</span>
+        <span class="htag">🌱 SDGs</span>
+      </div>
+      <div class="hero-contacts">
+        <div class="hcontact"><div class="icon">📧</div> phumiphat.link2550@gmail.com</div>
+        <div class="hcontact"><div class="icon">📸</div> Instagram: lk08250</div>
+        <div class="hcontact"><div class="icon">📱</div> 080-219-4594</div>
+      </div>
+    </div>
+  </div>
+  <div class="window-statusbar">
+    <div class="statusbar-section">📁 Portfolio 2569</div>
+    <div class="statusbar-section">🏫 คณะบัญชี มก.</div>
+  </div>
+</div>
+
+<!-- ═══ ABOUT WINDOW ═══ -->
+<div class="window" id="about">
+  <div class="window-titlebar">
+    <div class="window-title"><span class="win-icon">📁</span> My Profile — เกี่ยวกับตัวฉัน</div>
+    <div class="window-btns">
+      <div class="win-btn">_</div>
+      <div class="win-btn">□</div>
+      <div class="win-btn">✕</div>
+    </div>
+  </div>
+  <div class="menubar">
+    <div class="menu-item"><u>F</u>ile</div>
+    <div class="menu-item"><u>E</u>dit</div>
+    <div class="menu-item"><u>V</u>iew</div>
+  </div>
+  <div class="window-body">
+    <div class="section-label">01 — Profile</div>
+    <div class="section-title">เกี่ยวกับ<span>ตัวฉัน</span></div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>ผมชื่อ ภูมิพัฒน์ ลีลาศิริวณิชย์ หรือเรียกว่า "ลิงค์" ปัจจุบันกำลังศึกษาอยู่ที่โรงเรียนสวนกุหลาบวิทยาลัย นนทบุรี สาย STEM เกิดเมื่อวันที่ 21 สิงหาคม พ.ศ.2550</p>
+        <p>ผมเชื่อว่าในโลกธุรกิจปัจจุบันที่ขับเคลื่อนด้วยข้อมูล บทบาทนักบัญชีไม่ได้จำกัดอยู่แค่บันทึกรายการ แต่ต้องมีพื้นฐานเทคโนโลยีและวิสัยทัศน์การบริหาร จากสาย STEM ทำให้ผมมีทักษะคิดอย่างเป็นระบบผ่านการทำโครงงานและการแข่งขันต่าง ๆ</p>
+        <p>ประสบการณ์จากการเป็นผู้จัดการงบประมาณในโครงการ "Unlock your SelfQuest" ทำให้ผมเข้าใจหัวใจสำคัญของวิชาชีพบัญชี ว่าคือ <strong>ความซื่อสัตย์และความรับผิดชอบ</strong></p>
+        <div class="interests-grid">
+          <div class="interest-item"><div class="icon">💻</div><div class="txt">นำเทคโนโลยีมาประยุกต์ใช้</div></div>
+          <div class="interest-item"><div class="icon">📊</div><div class="txt">จัดการข้อมูลให้เป็นระบบ</div></div>
+          <div class="interest-item"><div class="icon">🎯</div><div class="txt">วางแผนเพื่อผลลัพธ์สูงสุด</div></div>
+          <div class="interest-item"><div class="icon">🤖</div><div class="txt">ระบบ Automation</div></div>
+        </div>
+      </div>
+      <div class="info-list">
+        <div class="info-row"><div class="key">ชื่อ-สกุล</div><div class="val">นายภูมิพัฒน์ ลีลาศิริวณิชย์</div></div>
+        <div class="info-row"><div class="key">ชื่อเล่น</div><div class="val">ลิงค์ (Link)</div></div>
+        <div class="info-row"><div class="key">วันเกิด</div><div class="val">21 สิงหาคม พ.ศ.2550</div></div>
+        <div class="info-row"><div class="key">ศาสนา</div><div class="val">คริสต์</div></div>
+        <div class="info-row"><div class="key">หมู่เลือด</div><div class="val">B</div></div>
+        <div class="info-row"><div class="key">ม.ต้น</div><div class="val">เซนฟรังซีสเซเวียร์ ปากเกร็ด (English Program)</div></div>
+        <div class="info-row"><div class="key">ม.ปลาย</div><div class="val">สวนกุหลาบวิทยาลัย นนทบุรี · STEM</div></div>
+        <div class="info-row"><div class="key">GPAX</div><div class="val">3.62 (5 เทอม)</div></div>
+        <div class="info-row"><div class="key">CU-TEP</div><div class="val">74 คะแนน (Valid ถึง ส.ค. 2027)</div></div>
+        <div class="info-row"><div class="key">เป้าหมาย</div><div class="val">คณะบริหารธุรกิจ สาขาบัญชี มหาวิทยาลัยเกษตรศาสตร์</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="window-statusbar">
+    <div class="statusbar-section">10 items</div>
+    <div class="statusbar-section">STEM Student</div>
+  </div>
+</div>
+
+<!-- ═══ SKILLS WINDOW ═══ -->
+<div class="window" id="skills">
+  <div class="window-titlebar">
+    <div class="window-title"><span class="win-icon">💾</span> Skills.exe — ทักษะและความสามารถ</div>
+    <div class="window-btns">
+      <div class="win-btn">_</div>
+      <div class="win-btn">□</div>
+      <div class="win-btn">✕</div>
+    </div>
+  </div>
+  <div class="window-body">
+    <div class="section-label">02 — Skills & Tech</div>
+    <div class="section-title">ทักษะและ<span>ความสามารถ</span></div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <span class="skill-card-icon">🧠</span>
+        <div class="skill-card-title">Systematic Thinking</div>
+        <div class="skill-tags">
+          <span class="stag">STEM Logic</span>
+          <span class="stag">Problem Solving</span>
+          <span class="stag">Design Thinking</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-card-icon">💰</span>
+        <div class="skill-card-title">Financial Management</div>
+        <div class="skill-tags">
+          <span class="stag">Budget Planning</span>
+          <span class="stag">Cost Control</span>
+          <span class="stag">Financial Reporting</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-card-icon">💻</span>
+        <div class="skill-card-title">Technology & Coding</div>
+        <div class="skill-tags">
+          <span class="stag blue">Arduino</span>
+          <span class="stag blue">Godot 4</span>
+          <span class="stag blue">Google Sheets</span>
+          <span class="stag blue">UI/UX Design</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-card-icon">📊</span>
+        <div class="skill-card-title">Data & Analytics</div>
+        <div class="skill-tags">
+          <span class="stag blue">Data Visualization</span>
+          <span class="stag blue">Statistical Analysis</span>
+          <span class="stag blue">Automation</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-card-icon">👑</span>
+        <div class="skill-card-title">Leadership</div>
+        <div class="skill-tags">
+          <span class="stag">สภานักเรียน</span>
+          <span class="stag">Team Management</span>
+          <span class="stag">Event Planning</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-card-icon">🌐</span>
+        <div class="skill-card-title">Digital Accounting Tools</div>
+        <div class="skill-tags">
+          <span class="stag gold">ERP / Dynamics 365</span>
+          <span class="stag gold">CIMA / CGMA</span>
+          <span class="stag gold">RPA · Alteryx</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ SKILL BARS — อัปเดต: ลบภาษาไทย + เพิ่ม TGAT/TPAT ══ -->
+    <div class="skill-bar-list" style="max-width:550px; margin-top:24px;">
+
+      <!-- TGAT -->
+      <div class="sb-group-header">📋 TGAT ความถนัดทั่วไป (รหัสวิชา 90)</div>
+      <div class="sb-row">
+        <div class="sb-info"><span>TGAT รวม</span><span class="sb-pct">76.283 / 100</span></div>
+        <div class="sb-track"><div class="sb-fill" style="width:76.283%"></div></div>
+      </div>
+      <div class="sb-row">
+        <div class="sb-info"><span>TGAT1 การสื่อสารภาษาอังกฤษ</span><span class="sb-pct">88.333 / 100</span></div>
+        <div class="sb-track"><div class="sb-fill" style="width:88.333%"></div></div>
+      </div>
+      <div class="sb-row">
+        <div class="sb-info"><span>TGAT2 การคิดอย่างมีเหตุผล</span><span class="sb-pct">74.683 / 100</span></div>
+        <div class="sb-track"><div class="sb-fill" style="width:74.683%"></div></div>
+      </div>
+      <div class="sb-row">
+        <div class="sb-info"><span>TGAT3 สมรรถนะการทำงาน</span><span class="sb-pct">65.833 / 100</span></div>
+        <div class="sb-track"><div class="sb-fill" style="width:65.833%"></div></div>
+      </div>
+
+      <div class="sb-divider"></div>
+
+      <!-- TPAT3 -->
+      <div class="sb-group-header">📋 TPAT3 ความถนัดวิทยาศาสตร์ เทคโนโลยี และวิศวกรรมศาสตร์ (รหัสวิชา 30)</div>
+      <div class="sb-row">
+        <div class="sb-info"><span>TPAT3 รวม</span><span class="sb-pct">48.000 / 100</span></div>
+        <div class="sb-track"><div class="sb-fill" style="width:48%"></div></div>
+      </div>
+
+      <div class="sb-divider"></div>
+
+      <!-- Other Skills (ลบภาษาไทยแล้ว) -->
+      <div class="sb-group-header">💾 Other Skills</div>
+      <div class="sb-row">
+        <div class="sb-info"><span>ภาษาอังกฤษ (B2 Level)</span><span class="sb-pct">75%</span></div>
+        <div class="sb-track"><div class="sb-fill" style="width:75%"></div></div>
+      </div>
+      <div class="sb-row">
+        <div class="sb-info"><span>Financial Management</span><span class="sb-pct">80%</span></div>
+        <div class="sb-track"><div class="sb-fill" style="width:80%"></div></div>
+      </div>
+      <div class="sb-row">
+        <div class="sb-info"><span>Technology / Coding</span><span class="sb-pct">78%</span></div>
+        <div class="sb-track"><div class="sb-fill" style="width:78%"></div></div>
+      </div>
+      <div class="sb-row">
+        <div class="sb-info"><span>Data Analysis</span><span class="sb-pct">70%</span></div>
+        <div class="sb-track"><div class="sb-fill" style="width:70%"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ACTIVITIES WINDOW ═══ -->
+<div class="window" id="activities">
+  <div class="window-titlebar">
+    <div class="window-title"><span class="win-icon">📋</span> Activities.log — ประสบการณ์และกิจกรรม</div>
+    <div class="window-btns">
+      <div class="win-btn">_</div>
+      <div class="win-btn">□</div>
+      <div class="win-btn">✕</div>
+    </div>
+  </div>
+  <div class="window-body">
+    <div class="section-label">03 — Activities</div>
+    <div class="section-title">ประสบการณ์และ<span>กิจกรรม</span></div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot">🏦</div>
+        <div class="tl-content">
+          <div class="tl-date">กรกฎาคม 2568 — ปัจจุบัน</div>
+          <div class="tl-title">โครงการ YoungAct — "Unlock your SelfQuest"</div>
+          <div class="tl-role">ฝ่ายการเงินและงบประมาณ</div>
+          <div class="tl-desc">บริหารงบประมาณรวม 16,392 บาท วางแผนจัดสรรงบ คำนวณต้นทุน ควบคุมการเบิกจ่าย และจัดทำบัญชีรายรับ-รายจ่าย ภายใต้ สสส. ผ่านเครือข่ายเยาวชน YoungAct — ผู้เข้าร่วม 50 คน ความพึงพอใจเฉลี่ย >4.5</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">🌸</div>
+        <div class="tl-content">
+          <div class="tl-date">เม.ย.2567 — มี.ค.2568</div>
+          <div class="tl-title">คณะกรรมการสภานักเรียน — สวนกุหลาบวิทยาลัย นนทบุรี</div>
+          <div class="tl-role">ฝ่ายนโยบายและแผนงาน</div>
+          <div class="tl-desc">ออกแบบและวางแผนการทำงานในกิจกรรมต่าง ๆ เช่น กุหลาบอำลา กุหลาบแรกพบ วันไหว้ครู รวมถึงบริหารงบประมาณขายดอกกุหลาบและร้านโอเด้งในงานสวนนนท์ปริทรรศน์</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">🤝</div>
+        <div class="tl-content">
+          <div class="tl-date">3 กรกฎาคม 2568</div>
+          <div class="tl-title">กิจกรรมธารน้ำใจ ลูกสวนนนท์สู่ชุมชน</div>
+          <div class="tl-role">ผู้จัดการงบประมาณ & สตาฟ</div>
+          <div class="tl-desc">จัดกิจกรรมจิตอาสาให้น้อง ๆ ประถมศึกษา 50 คน ร่วมกับโรงเรียนวัดตำหนักเหนือ บริหารงบประมาณและระดมทุนผ่านการเล่นดนตรี</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">🏕️</div>
+        <div class="tl-content">
+          <div class="tl-date">7-10 มิถุนายน 2568</div>
+          <div class="tl-title">Youth Camp For Next Step 2025</div>
+          <div class="tl-role">ผู้เข้าร่วม — "ค่ายเปลี่ยนคนเยาวชนเปลี่ยนโลก"</div>
+          <div class="tl-desc">เรียนรู้กระบวนการสร้างความสำเร็จด้วยวินัย พัฒนาทักษะการอยู่ร่วมกับผู้อื่น และฝึกสติเพื่อสุขภาพจิตที่ดี</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="window-statusbar">
+    <div class="statusbar-section">4 activities loaded</div>
+    <div class="statusbar-section">Last updated: 2569</div>
+  </div>
+</div>
+
+<!-- ═══ ACHIEVEMENTS WINDOW ═══ -->
+<div class="window ach-window" id="achievements">
+  <div class="window-titlebar">
+    <div class="window-title"><span class="win-icon">🏆</span> Awards.dat — รางวัลและผลงาน</div>
+    <div class="window-btns">
+      <div class="win-btn">_</div>
+      <div class="win-btn">□</div>
+      <div class="win-btn">✕</div>
+    </div>
+  </div>
+  <div class="window-body">
+    <div style="color:#80a0ff; font-family:'VT323',monospace; font-size:18px; margin-bottom:12px;">04 — Achievements</div>
+    <div class="ach-grid">
+      <div class="ach-card gold">
+        <span class="ach-medal">🥇</span>
+        <div class="ach-title">เหรียญทอง ชนะเลิศ อันดับ 1 — IS3</div>
+        <div class="ach-event">การประกวดนำความรู้ไปใช้บริการสังคม งานเวทีศักยภาพผู้เรียนมาตรฐานสากล ระดับโรงเรียน · โครงงาน PlantMind (Lead Program Developer)</div>
+        <div class="ach-date">30 มกราคม 2568</div>
+      </div>
+      <div class="ach-card silver">
+        <span class="ach-medal">🥈</span>
+        <div class="ach-title">เหรียญเงิน ระดับประเทศ — SK Robotics Playground 2025</div>
+        <div class="ach-event">ประเภท โครงงาน AI — พัฒนาสื่อ AI การเรียนรู้ด้วยหลัก Design Thinking เพื่อลดข้อผิดพลาดและเพิ่มประสิทธิภาพ</div>
+        <div class="ach-date">16 พฤศจิกายน 2568</div>
+      </div>
+      <div class="ach-card silver">
+        <span class="ach-medal">🥈</span>
+        <div class="ach-title">รองชนะเลิศ อันดับ 1 — KMUTNB STEM Workshop</div>
+        <div class="ach-event">โครงการอบรมพัฒนาศักยภาพเสริมทักษะเชิงปฏิบัติการสะเต็ม มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ</div>
+        <div class="ach-date">27-28 สิงหาคม 2568</div>
+      </div>
+      <div class="ach-card green">
+        <span class="ach-medal">🥈</span>
+        <div class="ach-title">รองชนะเลิศ อันดับ 2 — ACT Science ระดับนานาชาติ</div>
+        <div class="ach-event">การสอบแข่งขัน American College Testing สาขาวิทยาศาสตร์ระดับนานาชาติ โดย ACT Education Solutions ในฐานะตัวแทนโรงเรียน</div>
+        <div class="ach-date">31 กรกฎาคม 2568</div>
+      </div>
+    </div>
+  </div>
+  <div class="window-statusbar">
+    <div class="statusbar-section">4 awards found</div>
+    <div class="statusbar-section">🥇 1 Gold · 🥈 3 Silver</div>
+  </div>
+</div>
+
+<!-- ═══ ROADMAP WINDOW ═══ -->
+<div class="window" id="roadmap">
+  <div class="window-titlebar">
+    <div class="window-title"><span class="win-icon">🗺️</span> Roadmap.plan — เส้นทางอนาคต</div>
+    <div class="window-btns">
+      <div class="win-btn">_</div>
+      <div class="win-btn">□</div>
+      <div class="win-btn">✕</div>
+    </div>
+  </div>
+  <div class="window-body">
+    <div class="section-label">05 — Career Roadmap</div>
+    <div class="section-title">เส้นทาง<span>อนาคต</span></div>
+    <div class="roadmap-track">
+      <div class="rm-step">
+        <div class="rm-icon">📚</div>
+        <div class="rm-label">ระยะสั้น · 1-4 ปี</div>
+        <div class="rm-title">Digital Accountant</div>
+        <div class="rm-items">
+          เรียนรู้ ERP, Data Analytics<br>
+          รักษาเกรด >3.5<br>
+          ใช้สิทธิ์ Fast Track CIMA<br>
+          ฝึกทักษะ Dynamics 365
+        </div>
+      </div>
+      <div class="rm-step">
+        <div class="rm-icon">🔍</div>
+        <div class="rm-label">ระยะกลาง · 3-5 ปีหลังจบ</div>
+        <div class="rm-title">Auditor & CPA</div>
+        <div class="rm-items">
+          เข้าทำงานสาย Audit<br>
+          เก็บชั่วโมงและสอบ CPA<br>
+          สร้างมาตรฐานการทำงาน<br>
+          พัฒนาทักษะ International
+        </div>
+      </div>
+      <div class="rm-step">
+        <div class="rm-icon">🌟</div>
+        <div class="rm-label">ระยะยาว</div>
+        <div class="rm-title">CGMA & Family Business</div>
+        <div class="rm-items">
+          คว้าวิทยฐานะ CGMA<br>
+          บริหารธุรกิจครอบครัว<br>
+          นำ AI & Data มาบูรณาการ<br>
+          สร้างนวัตกรรมการบัญชี
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ INTERVIEW WINDOW ═══ -->
+<div class="window" id="interview">
+  <div class="window-titlebar">
+    <div class="window-title"><span class="win-icon">🎤</span> Interview_Prep.exe — เตรียมตัวสัมภาษณ์</div>
+    <div class="window-btns">
+      <div class="win-btn">_</div>
+      <div class="win-btn">□</div>
+      <div class="win-btn">✕</div>
+    </div>
+  </div>
+  <div class="window-body">
+    <div class="section-label">06 — Interview Prep</div>
+    <div class="section-title">เตรียมตัว<span>สัมภาษณ์</span></div>
+
+    <div class="intro-script">
+      <div class="intro-script-label">
+        ▶ LOADING SCRIPT... OK
+      </div>
+      <div class="intro-script-text">
+        "สวัสดีครับ ผมชื่อ นายภูมิพัฒน์ ลีลาศิริวณิชย์ (ลิงค์) มาจากโรงเรียนสวนกุหลาบวิทยาลัย นนทบุรี แผนการเรียน STEM ครับ<br><br>
+        โดยปกติแล้วผมเป็นคนชอบทำกิจกรรมทั้งในและนอกโรงเรียนครับ กิจกรรมในโรงเรียนที่โดดเด่นคือการทำธุรกิจจำลอง ตั้งร้านขายกุหลาบและโอเด้ง รวมถึงการประกวดโครงงานแอปพลิเคชัน ส่วนกิจกรรมนอกโรงเรียน ผมได้รับโอกาสร่วมงานกับเครือข่ายเยาวชน YoungAct ของ สสส. ในตำแหน่งฝ่ายการเงิน โครงการ 'Unlock your SelfQuest' ครับ<br><br>
+        จากการทำงานจริงทำให้ผมเป็นคนคิดอย่างเป็นระบบและมีความรู้ด้านการจัดการเงินที่โปร่งใสมากขึ้น ประสบการณ์เหล่านี้ทำให้ผมเห็นว่า นักบัญชียุคใหม่ควรเป็นผู้ที่นำเทคโนโลยีมาเพิ่มประสิทธิภาพของงานได้ ผมจึงมีความมุ่งมั่นอย่างยิ่งที่จะเข้าศึกษาต่อที่คณะบริหารธุรกิจ สาขาวิชาการบัญชี มหาวิทยาลัยเกษตรศาสตร์ ครับ"
+      </div>
+      <div class="intro-script-timer">
+        <div class="timer-dot"></div>
+        Duration: ~42 sec | Status: READY
+      </div>
+    </div>
+
+    <div class="qa-tabs">
+      <button class="qa-tab active" onclick="switchTab('general')">💬 ทั่วไป</button>
+      <button class="qa-tab" onclick="switchTab('career')">🏦 วิชาชีพ & Tech</button>
+      <button class="qa-tab" onclick="switchTab('portfolio')">📁 Portfolio</button>
+    </div>
+
+    <div id="tab-general" class="qa-panel active">
+      <div class="qa-list">
+        <div class="qa-item">
+          <div class="qa-q" onclick="toggleQA(this)">
+            <div class="qa-q-icon">Q</div>
+            <div class="qa-q-text">ทำไมถึงอยากเรียนบัญชี?</div>
+            <div class="qa-toggle">▾</div>
+          </div>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-a-tag">ANS</div><div class="qa-a-text">เพราะเป็นวิชาชีพที่มั่นคงและเป็นหัวใจของทุกธุรกิจครับ ผมต้องการนำความรู้ที่เป็นมาตรฐานสากลไปประยุกต์ใช้เพื่อยกระดับและต่อยอดธุรกิจที่บ้านให้เติบโตอย่างยั่งยืนครับ</div></div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-q" onclick="toggleQA(this)">
+            <div class="qa-q-icon">Q</div>
+            <div class="qa-q-text">มองตัวเองในอนาคตไว้อย่างไร?</div>
+            <div class="qa-toggle">▾</div>
+          </div>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-a-tag">ANS</div><div class="qa-a-text">เป้าหมายแรกคือการเป็น ผู้ตรวจสอบบัญชี (Auditor) เพื่อเก็บเกี่ยวประสบการณ์และมาตรฐานการทำงานที่ละเอียดรอบคอบ จากนั้นจะนำความเชี่ยวชาญกลับมาบริหารธุรกิจของครอบครัวครับ</div></div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-q" onclick="toggleQA(this)">
+            <div class="qa-q-icon">Q</div>
+            <div class="qa-q-text">จุดเด่น และจุดด้อยของตัวเองคืออะไร?</div>
+            <div class="qa-toggle">▾</div>
+          </div>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-a-tag">ANS</div><div class="qa-a-text"><strong>จุดเด่น:</strong> มี Logic การคิดแบบ STEM ทำให้เด่นเรื่องเทคโนโลยี ขยัน และมีทักษะภาษาอังกฤษครับ<br><br><strong>จุดด้อย:</strong> บางครั้งอาจมีความไม่มั่นใจบ้าง แต่ผมแก้ปัญหาด้วยการเตรียมข้อมูลให้แม่นยำและฝึกฝนอย่างหนักจนเกิดความชำนาญครับ</div></div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-q" onclick="toggleQA(this)">
+            <div class="qa-q-icon">Q</div>
+            <div class="qa-q-text">ถ้าไม่ติดรอบนี้จะทำอย่างไร?</div>
+            <div class="qa-toggle">▾</div>
+          </div>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-a-tag">ANS</div><div class="qa-a-text">ผมยังคงมุ่งมั่นในเส้นทางนี้ครับ โดยเตรียมตัวเข้าสอบรอบที่ 3 (Admission) เอาไว้เป็นที่เรียบร้อยแล้วครับ</div></div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-q" onclick="toggleQA(this)">
+            <div class="qa-q-icon">Q</div>
+            <div class="qa-q-text">ถ้าติดที่นี่จะเอาไหม?</div>
+            <div class="qa-toggle">▾</div>
+          </div>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-a-tag">ANS</div><div class="qa-a-text">ยืนยันว่าเอาแน่นอนครับ เพราะ มก. มีหลักสูตรที่โดดเด่น และทำเลที่ตั้งใกล้บ้าน ช่วยลดภาระค่าใช้จ่ายและการเดินทาง ทำให้ผมโฟกัสกับการเรียนได้เต็มที่ครับ</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-career" class="qa-panel">
+      <div class="qa-list">
+        <div class="qa-item">
+          <div class="qa-q" onclick="toggleQA(this)">
+            <div class="qa-q-icon">Q</div>
+            <div class="qa-q-text">บัญชีจบไปทำอะไรได้บ้าง?</div>
+            <div class="qa-toggle">▾</div>
+          </div>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-a-tag">ANS</div><div class="qa-a-text">สายงานกว้างมากครับ เช่น ผู้ตรวจสอบ (Audit) ทั้ง CPA และ Internal Audit, ผู้วางระบบบัญชีที่นำ AI มาจัดการข้อมูล, หรือเป็นที่ปรึกษาด้านภาษีและวางแผนการเงินครับ</div></div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-q" onclick="toggleQA(this)">
+            <div class="qa-q-icon">Q</div>
+            <div class="qa-q-text">Auditor ทำอะไร?</div>
+            <div class="qa-toggle">▾</div>
+          </div>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-a-tag">ANS</div><div class="qa-a-text">หน้าที่หลักคือตรวจสอบและให้ความเชื่อมั่นว่ารายการที่บริษัทบันทึกไว้นั้นถูกต้องตามมาตรฐานการรายงานทางการเงิน และมีความโปร่งใสครับ</div></div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-q" onclick="toggleQA(this)">
+            <div class="qa-q-icon">Q</div>
+            <div class="qa-q-text">การนำเทคโนโลยีมาประยุกต์ใช้ในชีวิตประจำวัน?</div>
+            <div class="qa-toggle">▾</div>
+          </div>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-a-tag">ANS</div><div class="qa-a-text">ผมทำ Data Visualization ส่วนตัวครับ เช่น บันทึกเวลาเรียนเตรียมสอบ A-Level และทำระบบคำนวณเป้าหมายรายวัน รวมถึงใช้ AI ช่วยสร้างโจทย์ปัญหาหลากหลายรูปแบบเพื่อฝึกฝนครับ</div></div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-q" onclick="toggleQA(this)">
+            <div class="qa-q-icon">Q</div>
+            <div class="qa-q-text">ตัวอย่างการทำงาน Automation?</div>
+            <div class="qa-toggle">▾</div>
+          </div>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-a-tag">ANS</div><div class="qa-a-text">ในโครงการ 'Unlock your SelfQuest' ผมใช้สูตรใน Google Sheets เพื่อคำนวณยอดงบประมาณอัตโนมัติ ช่วยลดความเสี่ยงจาก Human Error และประหยัดเวลาได้มากครับ</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-portfolio" class="qa-panel">
+      <div class="qa-list">
+        <div class="qa-item">
+          <div class="qa-q" onclick="toggleQA(this)">
+            <div class="qa-q-icon">Q</div>
+            <div class="qa-q-text">การจัดการข้อมูลให้เป็นระบบ?</div>
+            <div class="qa-toggle">▾</div>
+          </div>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-a-tag">ANS</div><div class="qa-a-text">ผมสร้าง Shared Spreadsheet วางโครงสร้างหมวดหมู่ค่าใช้จ่ายชัดเจน และเชื่อมโยง Folder รูปภาพใบเสร็จให้เป็นระเบียบ ทำให้ตรวจสอบข้อมูลได้ทันทีครับ</div></div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-q" onclick="toggleQA(this)">
+            <div class="qa-q-icon">Q</div>
+            <div class="qa-q-text">การวางแผนเพื่อผลลัพธ์สูงสุด?</div>
+            <div class="qa-toggle">▾</div>
+          </div>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-a-tag">ANS</div><div class="qa-a-text">ตอนขายกุหลาบและโอเด้ง ผมใช้หลัก Demand Forecasting เพื่อคาดการณ์ความต้องการลูกค้า ลดความเสี่ยงสินค้าค้างสต็อก ทำให้บริหารกำไรได้ตามเป้าครับ</div></div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-q" onclick="toggleQA(this)">
+            <div class="qa-q-icon">Q</div>
+            <div class="qa-q-text">การจัดการคนและงานสู่ระดับสากล (SDG 17)?</div>
+            <div class="qa-toggle">▾</div>
+          </div>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-a-tag">ANS</div><div class="qa-a-text">จากโครงงาน 'PlantMind' ผมออกแบบ Workflow ให้ชัดเจน และใช้หลัก Put the right man on the right job เพื่อให้ทีมทำงานได้เต็มประสิทธิภาพตามความถนัดครับ</div></div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-q" onclick="toggleQA(this)">
+            <div class="qa-q-icon">Q</div>
+            <div class="qa-q-text">ความเข้าใจในหลักสูตรบัญชี มก.?</div>
+            <div class="qa-toggle">▾</div>
+          </div>
+          <div class="qa-a"><div class="qa-a-inner"><div class="qa-a-tag">ANS</div><div class="qa-a-text">ประทับใจการสร้าง Digital Accountant ผ่านโปรแกรมจริงอย่าง Dynamics 365 หรือ Alteryx และมีเส้นทางลัดสู่สากลผ่านความร่วมมือกับ CIMA (CGMA) ครับ</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TECH VOCAB WINDOW ═══ -->
+<div class="window" id="techvocab">
+  <div class="window-titlebar">
+    <div class="window-title"><span class="win-icon">📖</span> TechVocab.hlp — คลังคำศัพท์เทคโนโลยี</div>
+    <div class="window-btns">
+      <div class="win-btn">_</div>
+      <div class="win-btn">□</div>
+      <div class="win-btn">✕</div>
+    </div>
+  </div>
+  <div class="menubar">
+    <div class="menu-item"><u>F</u>ile</div>
+    <div class="menu-item"><u>E</u>dit</div>
+    <div class="menu-item"><u>B</u>ookmark</div>
+    <div class="menu-item"><u>O</u>ptions</div>
+  </div>
+  <div class="window-body">
+    <div class="section-label">07 — Tech Vocabulary</div>
+    <div class="section-title">คลังคำศัพท์<span>เทคโนโลยี</span></div>
+    <div class="vocab-grid">
+      <div class="vocab-card">
+        <div class="vocab-icon">🏢</div>
+        <div class="vocab-body">
+          <div class="vocab-term">ERP</div>
+          <div class="vocab-full">Enterprise Resource Planning</div>
+          <div class="vocab-desc">ระบบบริหารจัดการองค์กรที่รวมทุกแผนกไว้ด้วยกัน ทั้งบัญชี การผลิต HR และ Supply Chain</div>
+          <div class="vocab-ku">🌾 มก. สอน: Dynamics 365</div>
+        </div>
+      </div>
+      <div class="vocab-card">
+        <div class="vocab-icon">🏛️</div>
+        <div class="vocab-body">
+          <div class="vocab-term">CIMA</div>
+          <div class="vocab-full">Chartered Institute of Management Accountants</div>
+          <div class="vocab-desc">องค์กรวิชาชีพบัญชีบริหารจากอังกฤษ ผู้จัดสอบวุฒิบัตรสากลด้านบัญชีบริหาร</div>
+          <div class="vocab-ku">🌾 Fast Track จาก มก.</div>
+        </div>
+      </div>
+      <div class="vocab-card">
+        <div class="vocab-icon">🌐</div>
+        <div class="vocab-body">
+          <div class="vocab-term">CGMA</div>
+          <div class="vocab-full">Chartered Global Management Accountant</div>
+          <div class="vocab-desc">วิทยฐานะนักบัญชีบริหารระดับสากล ได้รับหลังจากสอบผ่าน CIMA ครบทุกระดับ</div>
+          <div class="vocab-ku">🎯 เป้าหมายระยะยาว</div>
+        </div>
+      </div>
+      <div class="vocab-card">
+        <div class="vocab-icon">🤖</div>
+        <div class="vocab-body">
+          <div class="vocab-term">RPA</div>
+          <div class="vocab-full">Robotic Process Automation</div>
+          <div class="vocab-desc">ซอฟต์แวร์หุ่นยนต์ที่ทำงานซ้ำ ๆ แทนมนุษย์ เช่น กรอกข้อมูล ดึงรายงาน ตรวจสอบยอด</div>
+          <div class="vocab-ku">🌾 มก. สอน: Automation Anywhere</div>
+        </div>
+      </div>
+      <div class="vocab-card">
+        <div class="vocab-icon">📊</div>
+        <div class="vocab-body">
+          <div class="vocab-term">Data Visualization</div>
+          <div class="vocab-full">การแปลงข้อมูลเป็นภาพ / กราฟ</div>
+          <div class="vocab-desc">การนำข้อมูลตัวเลขมาแสดงในรูปแบบที่เข้าใจง่าย เพื่อช่วยตัดสินใจและวิเคราะห์แนวโน้ม</div>
+          <div class="vocab-ku">🌾 มก. สอน: Tableau / Looker Studio</div>
+        </div>
+      </div>
+      <div class="vocab-card">
+        <div class="vocab-icon">⚙️</div>
+        <div class="vocab-body">
+          <div class="vocab-term">Alteryx</div>
+          <div class="vocab-full">Data Analytics & Automation Platform</div>
+          <div class="vocab-desc">โปรแกรมวิเคราะห์และจัดการข้อมูลขนาดใหญ่ ช่วยทำ Data Prep และ Analytics โดยไม่ต้องเขียน Code มาก</div>
+          <div class="vocab-ku">🌾 มก. สอน Alteryx</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="window-statusbar">
+    <div class="statusbar-section">6 terms loaded</div>
+    <div class="statusbar-section">Help File v1.0</div>
+  </div>
+</div>
+
+<!-- ═══ CONTACT WINDOW ═══ -->
+<div class="window" id="contact">
+  <div class="window-titlebar">
+    <div class="window-title"><span class="win-icon">📧</span> Contact.msg — ติดต่อฉัน</div>
+    <div class="window-btns">
+      <div class="win-btn">_</div>
+      <div class="win-btn">□</div>
+      <div class="win-btn">✕</div>
+    </div>
+  </div>
+  <div class="window-body">
+    <div class="contact-grid">
+      <div class="contact-left">
+        <h2>📬 ติดต่อฉัน</h2>
+        <p>ขอบคุณที่ใช้เวลาอ่านพอร์ตโฟลิโอนี้ครับ<br>
+        หากต้องการข้อมูลเพิ่มเติมหรืออยากติดต่อ ยินดีครับ!</p>
+        <div style="margin-top:14px; font-family:'VT323',monospace; font-size:18px; color:var(--win-blue);">
+          > "Don't wait for opportunity — Create it" _
+        </div>
+      </div>
+      <div class="contact-right">
+        <div class="contact-item">
+          <div class="ci-icon">📧</div>
+          <div class="ci-info">
+            <div class="ci-label">EMAIL</div>
+            <div class="ci-val">phumiphat.link2550@gmail.com</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon">📱</div>
+          <div class="ci-info">
+            <div class="ci-label">PHONE</div>
+            <div class="ci-val">080-219-4594</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon">📸</div>
+          <div class="ci-info">
+            <div class="ci-label">INSTAGRAM</div>
+            <div class="ci-val">@lk08250</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon">🏠</div>
+          <div class="ci-info">
+            <div class="ci-label">ที่อยู่</div>
+            <div class="ci-val">76/19-20 ม.1 ถ.ติวานนท์ ต.บ้านใหม่ อ.ปากเกร็ด จ.นนทบุรี 11120</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="window-statusbar">
+    <div class="statusbar-section">📧 Ready to send</div>
+    <div class="statusbar-section">4 contact methods</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span>ภูมิพัฒน์ ลีลาศิริวณิชย์</span> · Portfolio 2569 · คณะบัญชี มหาวิทยาลัยเกษตรศาสตร์<br>
+  <span style="font-size:13px; color:#808080;">© Windows 95 Style Portfolio</span>
+</footer>
+
+</div>
+
+<!-- TASKBAR -->
+<nav>
+  <button class="start-btn">
+    <span class="win-logo">🪟</span> Start
+  </button>
+  <div class="taskbar-divider"></div>
+  <div class="taskbar-items">
+    <a href="#hero" class="taskbar-item active">🎓 Portfolio</a>
+    <a href="#about" class="taskbar-item">📁 Profile</a>
+    <a href="#skills" class="taskbar-item">💾 Skills</a>
+    <a href="#activities" class="taskbar-item">📋 Activities</a>
+    <a href="#achievements" class="taskbar-item">🏆 Awards</a>
+    <a href="#interview" class="taskbar-item">🎤 Interview</a>
+    <a href="#contact" class="taskbar-item">📧 Contact</a>
+  </div>
+  <div class="taskbar-divider"></div>
+  <div class="taskbar-clock">
+    🔊 <span id="clock">12:00</span>
+  </div>
+</nav>
+
+<script>
+function toggleQA(el) {
+  const item = el.closest('.qa-item');
+  item.classList.toggle('open');
+}
+function switchTab(tab) {
+  document.querySelectorAll('.qa-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.qa-panel').forEach(p => p.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('tab-' + tab).classList.add('active');
+}
+function updateClock() {
+  const now = new Date();
+  document.getElementById('clock').textContent =
+    now.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' });
+}
+updateClock();
+setInterval(updateClock, 30000);
+</script>
+</body>
+</html>
