@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Q&A Interview Prep — ภูมิพัฒน์ ลีลาศิริวณิชย์</title>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --win-bg:        #008080;
+  --win-titlebar:  linear-gradient(90deg, #000080, #1084d0);
+  --win-titlebar2: linear-gradient(90deg, #808080, #b0b0b0);
+  --win-face:      #c0c0c0;
+  --win-light:     #ffffff;
+  --win-shadow:    #808080;
+  --win-dark:      #404040;
+  --win-darkest:   #000000;
+  --win-white:     #dfdfdf;
+  --win-blue:      #000080;
+  --win-cyan:      #008080;
+  --win-green:     #008000;
+  --text:          #000000;
+  --text-light:    #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Sarabun', 'VT323', sans-serif;
+  background: var(--win-bg);
+  color: var(--text);
+  overflow-x: hidden;
+  cursor: default;
+  min-height: 100vh;
+  padding: 16px 16px 80px;
+}
+
+.window {
+  border: 2px solid;
+  border-color: var(--win-light) var(--win-darkest) var(--win-darkest) var(--win-light);
+  background: var(--win-face);
+  box-shadow: 1px 1px 0 var(--win-darkest);
+  margin-bottom: 12px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.window-titlebar {
+  background: var(--win-titlebar);
+  padding: 3px 4px;
+  display: flex; align-items: center; justify-content: space-between;
+  user-select: none;
+}
+.window-title {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 13px; font-weight: 700;
+  color: white;
+  padding-left: 4px;
+  display: flex; align-items: center; gap: 6px;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+}
+.window-btns { display: flex; gap: 2px; }
+.win-btn {
+  width: 16px; height: 14px;
+  border: 2px solid;
+  border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
+  background: var(--win-face);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 8px; font-weight: 900;
+  cursor: pointer; color: var(--text); line-height: 1;
+}
+.win-btn:active {
+  border-color: var(--win-dark) var(--win-light) var(--win-light) var(--win-dark);
+}
+.window-body { padding: 16px; }
+.window-statusbar {
+  border-top: 2px solid;
+  border-color: var(--win-dark) var(--win-light) var(--win-light) var(--win-dark);
+  padding: 3px 8px;
+  font-size: 11px; color: var(--text);
+  display: flex; gap: 12px;
+}
+.statusbar-section {
+  border: 1px solid;
+  border-color: var(--win-dark) var(--win-light) var(--win-light) var(--win-dark);
+  padding: 0 6px;
+}
+
+.section-label {
+  font-family: 'VT323', monospace;
+  font-size: 14px; color: var(--win-shadow);
+  letter-spacing: 2px; text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.section-title {
+  font-size: 22px; font-weight: 800;
+  margin-bottom: 16px; line-height: 1.2;
+}
+.section-title span { color: var(--win-blue); }
+
+.back-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 14px;
+  border: 2px solid;
+  border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
+  background: var(--win-face);
+  font-size: 12px; font-weight: 700;
+  font-family: 'Sarabun', sans-serif;
+  color: var(--text);
+  text-decoration: none;
+  cursor: pointer;
+  margin-bottom: 16px;
+}
+.back-btn:hover {
+  background: #d4d0c8;
+}
+.back-btn:active {
+  border-color: var(--win-dark) var(--win-light) var(--win-light) var(--win-dark);
+}
+
+.category-label {
+  background: var(--win-blue);
+  color: white;
+  font-size: 11px; font-weight: 700;
+  padding: 3px 12px;
+  margin: 16px 0 8px;
+  display: inline-block;
+  font-family: 'Sarabun', sans-serif;
+}
+
+.qa-list { display: flex; flex-direction: column; gap: 6px; }
+.qa-item {
+  border: 1px solid var(--win-dark);
+  background: white;
+}
+.qa-q {
+  padding: 8px 12px;
+  display: flex; align-items: flex-start; gap: 10px;
+  cursor: pointer; user-select: none;
+}
+.qa-q:hover { background: var(--win-blue); color: white; }
+.qa-q:hover .qa-q-text { color: white; }
+.qa-q:hover .qa-toggle { color: white; }
+.qa-q-num {
+  width: 22px; height: 22px;
+  border: 2px solid;
+  border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
+  background: #ffffcc;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 900; color: var(--win-blue);
+  flex-shrink: 0; font-family: 'VT323', monospace;
+}
+.qa-q-text { font-size: 13px; font-weight: 700; flex: 1; line-height: 1.5; }
+.qa-toggle { font-size: 14px; color: var(--win-dark); flex-shrink: 0; transition: transform 0.2s; }
+.qa-item.open .qa-toggle { transform: rotate(180deg); }
+.qa-a {
+  background: #ffffee;
+  border-top: 1px dotted var(--win-shadow);
+  padding: 0 12px; max-height: 0; overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.2s;
+}
+.qa-item.open .qa-a { max-height: 600px; padding: 10px 12px; }
+.qa-a-inner { display: flex; gap: 8px; }
+.qa-a-tag {
+  background: var(--win-green); color: white;
+  font-size: 9px; font-weight: 700;
+  padding: 2px 6px; flex-shrink: 0; margin-top: 2px;
+  font-family: 'Sarabun', sans-serif;
+}
+.qa-a-text { font-size: 13px; line-height: 1.8; white-space: pre-line; }
+
+.expand-all-btn {
+  padding: 4px 12px;
+  border: 2px solid;
+  border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
+  background: var(--win-face);
+  font-size: 11px; font-weight: 700;
+  font-family: 'Sarabun', sans-serif;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+.expand-all-btn:hover { background: #d4d0c8; }
+.expand-all-btn:active {
+  border-color: var(--win-dark) var(--win-light) var(--win-light) var(--win-dark);
+}
+
+nav {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  height: 40px;
+  background: var(--win-face);
+  border-top: 2px solid var(--win-light);
+  display: flex; align-items: center;
+  padding: 0 4px; gap: 4px;
+  z-index: 100;
+  box-shadow: 0 -1px 0 var(--win-dark);
+}
+.start-btn {
+  height: 30px; padding: 0 8px;
+  border: 2px solid;
+  border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
+  background: var(--win-face);
+  font-size: 12px; font-weight: 700;
+  font-family: 'Sarabun', sans-serif;
+  cursor: pointer;
+  display: flex; align-items: center; gap: 4px;
+}
+.start-btn:active {
+  border-color: var(--win-dark) var(--win-light) var(--win-light) var(--win-dark);
+}
+.win-logo { font-size: 14px; }
+.taskbar-divider {
+  width: 2px; height: 28px;
+  border-left: 1px solid var(--win-dark);
+  border-right: 1px solid var(--win-light);
+  margin: 0 2px;
+}
+.taskbar-item {
+  padding: 3px 10px;
+  font-size: 11px; font-weight: 700;
+  border: 2px solid;
+  border-color: var(--win-dark) var(--win-light) var(--win-light) var(--win-dark);
+  background: #d4d0c8;
+  text-decoration: none;
+  color: var(--text);
+  font-family: 'Sarabun', sans-serif;
+  white-space: nowrap;
+}
+.taskbar-item:hover { background: var(--win-face); }
+.taskbar-clock {
+  margin-left: auto;
+  border: 1px solid;
+  border-color: var(--win-dark) var(--win-light) var(--win-light) var(--win-dark);
+  padding: 2px 10px; font-size: 12px;
+  font-family: 'VT323', monospace;
+}
+
+@media (max-width: 600px) {
+  body { padding: 8px 8px 80px; }
+  .section-title { font-size: 18px; }
+}
+</style>
+</head>
+<body>
+
+<div class="window">
+  <div class="window-titlebar">
+    <div class="window-title"><span>📋</span> QA_InterviewPrep.txt — คลังถาม-ตอบสัมภาษณ์</div>
+    <div class="window-btns">
+      <div class="win-btn">_</div>
+      <div class="win-btn">□</div>
+      <div class="win-btn">✕</div>
+    </div>
+  </div>
+  <div class="window-body">
+
+    <a href="index.html" class="back-btn">◀ กลับหน้าหลัก Portfolio</a>
+
+    <div class="section-label">Q&amp;A — Interview Prep</div>
+    <div class="section-title">คลังคำถาม<span>สัมภาษณ์</span></div>
+
+    <button class="expand-all-btn" onclick="toggleAll()">📂 ขยาย/ย่อ ทั้งหมด</button>
+
+    <!-- Category: ทั่วไป -->
+    <div class="category-label">👤 ทั่วไป &amp; แนะนำตัว</div>
+    <div class="qa-list">
+
+      <div class="qa-item">
+        <div class="qa-q" onclick="toggleQA(this)">
+          <div class="qa-q-num">1</div>
+          <div class="qa-q-text">แนะนำตัวเองหน่อยครับ</div>
+          <div class="qa-toggle">▾</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner"><div class="qa-a-tag">ANS</div><div class="qa-a-text">สวัสดีครับผมชื่อนายภูมิพัฒน์ ลีลาศิริวณิชย์ ชื่อเล่นชื่อลิงค์ มาจากโรงเรียนสวนกุหลาบวิทยาลัย นนทบุรีครับ
+
+โดยปกติแล้วผมเป็นคนชอบทำกิจกรรมไม่ว่าจะเป็นกิจกรรมในโรงเรียนหรือภายนอกโรงเรียน กิจกรรมในโรงเรียนอย่างเช่น ตั้งร้านขายกุหลาบ ขายโอเด้ง และประกวดโครงงานแอปพลิเคชันครับ ส่วนกิจกรรมนอกโรงเรียนเช่น ได้ทำงานกับเครือข่ายเยาวชน YoungAct ของ สสส. ในตำแหน่ง ฝ่ายการเงิน ของโครงการ 'Unlock your SelfQuest'
+
+จากการทำงานทำให้ผมเรียนเป็นคนคิดอย่างเป็นระบบและมีความรู้ด้านการเงินมากขึ้น จากประสบการณ์เหล่านี้ทำให้ผมเห็นว่านักบัญชียุคใหม่ควรเป็นผู้ที่นำเทคโนโลยีมาเพิ่มประสิทธิภาพของงานได้ครับ จึงอยากศึกษาต่อที่คณะบริหารธุรกิจ สาขาวิชาการบัญชี มหาวิทยาลัยเกษตรศาสตร์ครับ</div></div></div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-q" onclick="toggleQA(this)">
+          <div class="qa-q-num">2</div>
+          <div class="qa-q-text">ทำไมถึงอยากเรียนสาขานี้? / เหตุผลที่อยากเข้าบัญชี</div>
+          <div class="qa-toggle">▾</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner"><div class="qa-a-tag">ANS</div><div class="qa-a-text">เพราะเป็นสาขาที่เรียนแล้วไม่ตกงาน และอยากนำความรู้ที่ได้ไปประยุกต์กับธุรกิจที่บ้านครับ</div></div></div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-q" onclick="toggleQA(this)">
+          <div class="qa-q-num">3</div>
+          <div class="qa-q-text">มองตัวเองในอนาคตไว้ยังไง?</div>
+          <div class="qa-toggle">▾</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner"><div class="qa-a-tag">ANS</div><div class="qa-a-text">อยากทำงานเกี่ยวกับสายงานผู้ตรวจสอบบัญชีและสานต่อธุรกิจครอบครัวครับ</div></div></div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-q" onclick="toggleQA(this)">
+          <div class="qa-q-num">4</div>
+          <div class="qa-q-text">จุดเด่นและจุดด้อยของตัวเองคืออะไร?</div>
+          <div class="qa-toggle">▾</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner"><div class="qa-a-tag">ANS</div><div class="qa-a-text"><strong>จุดเด่น:</strong> เรื่องเทคโนโลยี ขยัน ภาษาอังกฤษ
+<strong>จุดด้อย:</strong> ไม่มั่นใจในบางครั้ง แก้ไขปัญหาโดยการฝึกฝนให้มั่นใจมากขึ้น</div></div></div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-q" onclick="toggleQA(this)">
+          <div class="qa-q-num">5</div>
+          <div class="qa-q-text">เลือกมหาลัยไหนไว้บ้าง?</div>
+          <div class="qa-toggle">▾</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner"><div class="qa-a-tag">ANS</div><div class="qa-a-text">มก. จฬ. มธ.</div></div></div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-q" onclick="toggleQA(this)">
+          <div class="qa-q-num">6</div>
+          <div class="qa-q-text">ถ้าติดที่นี่จะเอาไหม?</div>
+          <div class="qa-toggle">▾</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner"><div class="qa-a-tag">ANS</div><div class="qa-a-text">เอาเพราะใกล้บ้านช่วยลดค่าใช้จ่ายที่บ้านได้ครับ</div></div></div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-q" onclick="toggleQA(this)">
+          <div class="qa-q-num">7</div>
+          <div class="qa-q-text">คติ / ประโยคสำคัญ</div>
+          <div class="qa-toggle">▾</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner"><div class="qa-a-tag">ANS</div><div class="qa-a-text">"จงมีความซื่อสัตย์และความรับผิดชอบต่องานและผู้คน"</div></div></div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-q" onclick="toggleQA(this)">
+          <div class="qa-q-num">8</div>
+          <div class="qa-q-text">ความสามารถพิเศษ</div>
+          <div class="qa-toggle">▾</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner"><div class="qa-a-tag">ANS</div><div class="qa-a-text">ผมชื่นชอบเรื่องเทคโนโลยีและเคยพัฒนาแอปพลิเคชัน เมื่อมาถึงเรื่องเทคโนโลยี ผมจะสามารถเรียนรู้ได้รวดเร็วครับ นอกจากนี้ผมยังมีพื้นฐานทักษะภาษาอังกฤษระดับ B2 พร้อมที่จะนำไปต่อยอดได้ครับ</div></div></div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-q" onclick="toggleQA(this)">
+          <div class="qa-q-num">9</div>
+          <div class="qa-q-text">ถ้าไม่ติดรอบนี้จะทำยังไงต่อ</div>
+          <div class="qa-toggle">▾</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner"><div class="qa-a-tag">ANS</div><div class="qa-a-text">ถ้าไม่ติดรอบนี้ ผมเตรียมเข้าสอบรอบที่สามเอาไว้สำรองแล้วครับ</div></div></div>
+      </div>
+
+    </div>
+
+    <!-- Category: วิชาชีพ & เทคโนโลยี -->
+    <div class="category-label">🏦 วิชาชีพ &amp; เทคโนโลยี</div>
+    <div class="qa-list">
+
+      <div class="qa-item">
+        <div class="qa-q" onclick="toggleQA(this)">
+          <div class="qa-q-num">10</div>
+          <div class="qa-q-text">คิดว่าบัญชีจบไปทำอะไรได้บ้าง</div>
+          <div class="qa-toggle">▾</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner"><div class="qa-a-tag">ANS</div><div class="qa-a-text">บัญชีมีสายงานที่กว้างครับ เช่น
+• ผู้ตรวจสอบ (Audit) = ทั้งผู้ตรวจสอบบัญชีรับอนุญาต (CPA) และผู้ตรวจสอบภายใน
+• ผู้วางระบบบัญชีและสารสนเทศ = นำเทคโนโลยี AI มาช่วยจัดการข้อมูลทางการเงิน
+• ที่ปรึกษาด้านภาษีและวางแผนการเงิน</div></div></div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-q" onclick="toggleQA(this)">
+          <div class="qa-q-num">11</div>
+          <div class="qa-q-text">Auditor ทำอะไร ให้ระบุ/อธิบาย</div>
+          <div class="qa-toggle">▾</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner"><div class="qa-a-tag">ANS</div><div class="qa-a-text">ผู้ตรวจสอบบัญชี ตรวจสอบว่ารายการที่บริษัทบันทึกไว้นั้นถูกต้องตามมาตรฐานหรือไม่ครับ</div></div></div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-q" onclick="toggleQA(this)">
+          <div class="qa-q-num">12</div>
+          <div class="qa-q-text">ยกตัวอย่างการนำเทคโนโลยีมาประยุกต์ใช้ในชีวิตประจำวัน</div>
+          <div class="qa-toggle">▾</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner"><div class="qa-a-tag">ANS</div><div class="qa-a-text">ผมทำ Data Visualization ส่วนตัวครับ เช่น ตอนนี้ผมเรียนคอร์สเตรียมสอบ A-Level ผมได้บันทึกเวลาเรียนทั้งหมดของผมและทำส่วนคำนวณระยะเวลาที่ผมต้องเรียนต่อวันเพื่อให้เห็นภาพเป้าหมายการเรียน ผมใช้ AI เพื่อช่วยสร้างระบบที่จะสร้างโจทย์ปัญหาให้ครบทุกรูปแบบเพื่อฝึกทำโจทย์ได้เรื่อย ๆ ครับ</div></div></div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-q" onclick="toggleQA(this)">
+          <div class="qa-q-num">13</div>
+          <div class="qa-q-text">ยกตัวอย่างการทำงานอัตโนมัติเพื่อลดภาระงานที่ซ้ำซ้อน</div>
+          <div class="qa-toggle">▾</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner"><div class="qa-a-tag">ANS</div><div class="qa-a-text">ในการทำบัญชีโครงการ 'Unlock your SelfQuest' เดิมทีการคำนวณตัวเลขเยอะ ๆ แบบ Manual เสี่ยงที่จะเกิด Human Error ผมจึงใช้ Google Sheets ที่ใช้สูตรในการคำนวณอัตโนมัติ ซึ่งช่วยลดเวลาการทำงานลงและเพิ่มความแม่นยำครับ</div></div></div>
+      </div>
+
+    </div>
+
+    <!-- Category: Portfolio -->
+    <div class="category-label">📁 Portfolio &amp; ประสบการณ์</div>
+    <div class="qa-list">
+
+      <div class="qa-item">
+        <div class="qa-q" onclick="toggleQA(this)">
+          <div class="qa-q-num">14</div>
+          <div class="qa-q-text">ยกตัวอย่างการนำข้อมูลสำคัญมาทำให้มีระเบียบและเป็นระบบ</div>
+          <div class="qa-toggle">▾</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner"><div class="qa-a-tag">ANS</div><div class="qa-a-text">ตอนผมจัดการเงินโครงการ 'Unlock your SelfQuest' ครับ ผมสร้าง Google Sheet ที่มีการวางโครงสร้างหมวดหมู่ค่าใช้จ่ายชัดเจน มีการอัปโหลดรูปภาพใบเสร็จเข้า Folder ที่เชื่อมโยงกัน ทำให้ผมสามารถดึงข้อมูลออกมาได้อย่างเป็นระบบครับ</div></div></div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-q" onclick="toggleQA(this)">
+          <div class="qa-q-num">15</div>
+          <div class="qa-q-text">ยกตัวอย่างการวางแผนบางสิ่งเพื่อให้เกิดผลลัพธ์สูงสุด</div>
+          <div class="qa-toggle">▾</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner"><div class="qa-a-tag">ANS</div><div class="qa-a-text">ตอนผมทำธุรกิจจำลอง ขายดอกกุหลาบและโอเด้ง ในโรงเรียนครับ ผมไม่ได้แค่ซื้อมาขายไป แต่ผมวางแผนและคาดเดาความต้องการ หรือ Demand Forecasting เพื่อลดความเสี่ยงที่ของจะเหลือจำนวนมากครับ ผลลัพธ์คือไม่มีสินค้าเหลือเป็นจำนวนมากเลยครับ</div></div></div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-q" onclick="toggleQA(this)">
+          <div class="qa-q-num">16</div>
+          <div class="qa-q-text">การออกแบบขั้นตอนงาน การจัดการผู้คน และการจัดคนให้เข้ากับงาน สู่ระดับนานาชาติ</div>
+          <div class="qa-toggle">▾</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner"><div class="qa-a-tag">ANS</div><div class="qa-a-text"><strong>(สั้น)</strong> การออกแบบขั้นตอนงาน การจัดการผู้คน และการจัดคนให้เข้ากับงาน ทำให้เกิดกระบวนการที่ชัดเจน คนได้ทำงานในสิ่งที่ถนัด และมีความสุข งานที่ออกมาจะมีคุณภาพในระดับนานาชาติได้ครับ
+
+<strong>(ยาว)</strong> จากประสบการณ์การทำโครงงาน 'PlantMind' และการสอบ ACT ระดับนานาชาติ ผมได้มีการออกแบบขั้นตอนงาน โดยผมและทีมช่วยกันวางแผนและจัดการการทำงานอย่างเห็นภาพทั่วกัน การจัดการผู้คน ผมเน้นการสื่อสารที่ชัดเจนและการรับฟังความเห็นที่แตกต่าง เพื่อลดความขัดแย้งและสร้างเป้าหมายร่วมกัน การจัดคนให้เข้ากับงาน ผมดูความสามารถของเพื่อนในทีม เช่น คนที่ละเอียดให้ทำรายงาน คนที่มีเก่งเทคโนโลยีทำแอปพลิเคชัน และคนที่เก่งพูดให้นำเสนอเป็นหลัก เมื่อกระบวนการชัดเจน คนทำงานในสิ่งที่ถนัด และมีความสุข งานที่ออกมาจะมีคุณภาพในระดับนานาชาติได้ครับ</div></div></div>
+      </div>
+
+    </div>
+
+    <!-- Category: หลักสูตร มก. -->
+    <div class="category-label">🌾 หลักสูตร มก. &amp; SDGs</div>
+    <div class="qa-list">
+
+      <div class="qa-item">
+        <div class="qa-q" onclick="toggleQA(this)">
+          <div class="qa-q-num">17</div>
+          <div class="qa-q-text">หลักสูตรบัญชีของมหาวิทยาลัยเกษตรศาสตร์เป็นอย่างไรบ้าง?</div>
+          <div class="qa-toggle">▾</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner"><div class="qa-a-tag">ANS</div><div class="qa-a-text">หลักสูตรบัญชีของ มก. โดดเด่นเรื่องการสร้าง 'นักบัญชีมืออาชีพ' ที่มีความรู้รอบด้าน (Well-rounded) ครับ ไม่ได้เน้นแค่การลงบัญชี แต่เน้นการเป็น Business Partner ที่ช่วยบริหารธุรกิจ ผมประทับใจที่หลักสูตรมีการบูรณาการเทคโนโลยีสารสนเทศทางการบัญชี (Digital Accounting) และมีการส่งเสริมจรรยาบรรณวิชาชีพที่เข้มงวด นอกจากนี้ยังมีเครือข่ายศิษย์เก่าที่แข็งแกร่งในสายงาน Audit ซึ่งตรงกับเป้าหมายอาชีพของผมมากครับ</div></div></div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-q" onclick="toggleQA(this)">
+          <div class="qa-q-num">18</div>
+          <div class="qa-q-text">ทักษะการบริหารจัดการและการทำงานร่วมกับผู้อื่น (SDGs 17) คืออะไร?</div>
+          <div class="qa-toggle">▾</div>
+        </div>
+        <div class="qa-a"><div class="qa-a-inner"><div class="qa-a-tag">ANS</div><div class="qa-a-text">SDG 17 คือ 'ความร่วมมือเพื่อการพัฒนาที่ยั่งยืน' (Partnerships for the Goals) สำหรับผมมันคือการที่ทุกภาคส่วนมารวมพลังกันครับ ตัวอย่างที่ผมทำคือโครงการกับ YoungAct และ สสส. ซึ่งเป็นการทำงานร่วมกันระหว่างองค์กรเยาวชนและหน่วยงานรัฐ ทักษะที่สำคัญคือการประสานผลประโยชน์ (Negotiation) และการแบ่งปันทรัพยากรเพื่อให้บรรลุเป้าหมายที่ใหญ่กว่าตัวเอง การบริหารบัญชีโครงการนี้อย่างโปร่งใสก็เป็นส่วนหนึ่งที่สร้างความเชื่อมั่น (Trust) ซึ่งเป็นรากฐานสำคัญของ SDG 17 ครับ</div></div></div>
+      </div>
+
+    </div>
+
+  </div>
+  <div class="window-statusbar">
+    <div class="statusbar-section">📋 18 questions loaded</div>
+    <div class="statusbar-section">🎤 Interview Prep v1.0</div>
+    <div class="statusbar-section">Ready</div>
+  </div>
+</div>
+
+<!-- TASKBAR -->
+<nav>
+  <button class="start-btn">
+    <span class="win-logo">🪟</span> Start
+  </button>
+  <div class="taskbar-divider"></div>
+  <a href="index.html" class="taskbar-item">🎓 Portfolio</a>
+  <div class="taskbar-divider"></div>
+  <div class="taskbar-clock">
+    🔊 <span id="clock">12:00</span>
+  </div>
+</nav>
+
+<script>
+function toggleQA(el) {
+  const item = el.closest('.qa-item');
+  item.classList.toggle('open');
+}
+let allOpen = false;
+function toggleAll() {
+  allOpen = !allOpen;
+  document.querySelectorAll('.qa-item').forEach(item => {
+    if (allOpen) item.classList.add('open');
+    else item.classList.remove('open');
+  });
+}
+function updateClock() {
+  const now = new Date();
+  document.getElementById('clock').textContent =
+    now.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' });
+}
+updateClock();
+setInterval(updateClock, 30000);
+</script>
+</body>
+</html>
